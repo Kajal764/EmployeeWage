@@ -2,7 +2,8 @@
 echo "Welcome to Employee Wage Computation"
 
 WAGE_PER_HOUR=20
-FULL_DAY=8
+FULL_DAY_WORKING_HOUR=8
+HAIF_DAY_WORKING_HOUR=4
 dailyWage=0
 
 attendance=$((RANDOM%2))
