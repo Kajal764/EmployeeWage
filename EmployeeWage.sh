@@ -5,10 +5,10 @@ WAGE_PER_HOUR=20
 FULL_DAY_WORKING_HOUR=8
 HALF_DAY_WORKING_HOUR=4
 
-declare -a daily_Wage
-declare -a Total_Wage
+declare -A Wage
+
 days=0
-Total_Wage
+Total_Wage=0
 Total_Working_Hours=0
 function getHours(){
 	dailyhrs=$1
@@ -29,21 +29,18 @@ echo $dailyhrs
 
 while [[ $Total_working_hours -le 100 && $days -le 20 ]] 
 do
+	days=$(($days+1))
 	attendance=$((RANDOM%2))
 	hrs=$(getHours $attendance)
 	daily=$(( $hrs * $WAGE_PER_HOUR ))
-
-	daily_Wage[days]=$daily
-   Total_Working_Hours=$(($Total_Working_Hours + $hrs))
+	# Total_Working_Hours=$(($Total_Working_Hours + $hrs))
 	Total=$(( $Total+$daily ))
-	Total_Wage[days]=$Total
-	days=$(($days+1))
+	Wage["$days"]=" $days $daily  $Total"
+	
 done
 
-echo "daily wage array is "
-echo ${daily_Wage[@]}
-
-echo "total wage array is"
-echo ${Total_Wage[@]}
-
-
+echo ${!Wage[@]}
+for(( i=1;i<=20;i++ ))
+do
+	echo "days${Wage[$i]}"
+done
