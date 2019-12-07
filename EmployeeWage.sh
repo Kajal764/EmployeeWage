@@ -5,9 +5,10 @@ WAGE_PER_HOUR=20
 FULL_DAY_WORKING_HOUR=8
 HALF_DAY_WORKING_HOUR=4
 dailyWage=0
-
+ 
+for(( i=0;i<20;i++ ))
+do
 attendance=$((RANDOM%3))
-
 case $attendance in
 	0)
 	echo "employee is absent"
@@ -23,4 +24,5 @@ case $attendance in
 	echo "Daily wage is $dailyWage"
 	;;
 esac
+done
 
