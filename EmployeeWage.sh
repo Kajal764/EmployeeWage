@@ -12,6 +12,7 @@ attendance=$((RANDOM%3))
 case $attendance in
 	0)
 	echo "employee is absent"
+	echo "Daily wage is 0 "
 	;;
 	1)
 	echo "employee is present"
