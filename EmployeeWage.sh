@@ -7,27 +7,30 @@ HALF_DAY_WORKING_HOUR=4
 dailyWage=0
 Total_working_hours=0
 days=0
-while [[ Total_working_hours -le 100 && days -le 20 ]] 
-do
-attendance=$((RANDOM%3))
-case $attendance in
-	0)
-	echo "employee is absent"
-	echo "Daily wage is 0 "
-	;;
-	1)
-	echo "employee is present"
-	dailyWage=$(( $HALF_DAY_WORKING_HOUR * $WAGE_PER_HOUR ))
-	Total_working_hours=$(($Total_working_hours + $HALF_DAY_WORKING_HOUR))
-	echo "Daily wage is $dailyWage"
-	;;
-	2)
-	echo "employee is present"
-	dailyWage=$(( $FULL_DAY_WORKING_HOUR * $WAGE_PER_HOUR ))
-	Total_working_hours=$(($Total_working_hours+$FULL_DAY_WORKING_HOUR))
-	echo "Daily wage is $dailyWage"
-	;;
+function getHours(){
+	dailyhrs=$1
+	case $dailyhrs in
+   0)
+	dailyhrs=0
+   ;;
+   1)
+   dailyhrs=$HALF_DAY_WORKING_HOUR
+   ;;
+   2)
+   dailyhrs=$FULL_DAY_WORKING_HOUR
+   ;;
 esac
+echo $dailyhrs
+}
+
+
+while [[ $Total_working_hours -le 100 && $days -le 20 ]] 
+do
+	attendance=$((RANDOM%2))
+	hrs=$(getHours $attendance)
+	dailyWage=$(( $hrs * $WAGE_PER_HOUR ))
+   Total_working_hours=$(($Total_working_hours + $hrs))
+
 days=$(($days+1))
 done
 
