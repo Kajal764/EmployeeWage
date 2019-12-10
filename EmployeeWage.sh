@@ -1,46 +1,46 @@
 #!/bin/bash -x
+
 echo "Welcome to Employee Wage Computation"
 
+#constant
 WAGE_PER_HOUR=20
 FULL_DAY_WORKING_HOUR=8
 HALF_DAY_WORKING_HOUR=4
 
-declare -A Wage
-
+#variables
 days=0
-Total_Wage=0
-Total_Working_Hours=0
+totalWage=0
+totalWorkingHours=0
+
+declare -A wage
+
 function getHours(){
-	dailyhrs=$1
-	case $dailyhrs in
-   0)
-	dailyhrs=0
-   ;;
-   1)
-   dailyhrs=$HALF_DAY_WORKING_HOUR
-   ;;
-   2)
-   dailyhrs=$FULL_DAY_WORKING_HOUR
-   ;;
-esac
-echo $dailyhrs
+	case $1 in
+	0)
+		echo "0"
+   	;;
+	1)
+   		echo $HALF_DAY_WORKING_HOUR
+   	;;
+   	2)
+   		echo $FULL_DAY_WORKING_HOUR
+   	;;
+	esac
 }
 
 
-while [[ $Total_working_hours -le 100 && $days -le 20 ]] 
+while [[ $totalWorkingHours -le 100 && $days -le 20 ]] 
 do
 	days=$(($days+1))
-	attendance=$((RANDOM%2))
-	hrs=$(getHours $attendance)
-	daily=$(( $hrs * $WAGE_PER_HOUR ))
-	# Total_Working_Hours=$(($Total_Working_Hours + $hrs))
-	Total=$(( $Total+$daily ))
-	Wage["$days"]=" $days $daily  $Total"
+	hours=$(getHours $((RANDOM%3)))
+	daily=$(( $hours * $WAGE_PER_HOUR ))
+	totalWorkingHours=$(($totalWorkingHours + $hours))
+	total=$(( $total+$daily ))
+	wage["$days"]="$days    $daily    $total"
 	
 done
 
-echo ${!Wage[@]}
-for(( i=1;i<=20;i++ ))
+for(( days=1;days<=20;days++ ))
 do
-	echo "days${Wage[$i]}"
+	 echo day${wage[$days]}
 done
